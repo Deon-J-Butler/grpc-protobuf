@@ -1,0 +1,60 @@
+type potholeFinderApp_Profile {
+  id: Int
+  profileEmail: String
+  firstName: String
+  lastName: String
+  password: String
+  potholes: [String_potholeFinderApp_Potholes_map]
+}
+type String_potholeFinderApp_Potholes_map {
+  key: String
+  value: potholeFinderApp_Potholes
+}
+type potholeFinderApp_Pothole {
+  profile: potholeFinderApp_Profile
+  lat: String
+  lng: String
+  potholeSeverity: potholeFinderApp_Pothole_Pothole_Severity
+  _photo: potholeFinderApp_Pothole__photo
+  potholeVerification: potholeFinderApp_Pothole_Pothole_Verification
+}
+union potholeFinderApp_Pothole__photo = potholeFinderApp_Pothole_Photo
+enum potholeFinderApp_Pothole_Pothole_Severity {
+  SMALL
+  MEDIUM
+  LARGE
+}
+type potholeFinderApp_Pothole_Photo {
+  profile: potholeFinderApp_Profile
+  pothole: potholeFinderApp_Pothole
+  photoUrl: String
+  _photoName: potholeFinderApp_Pothole_Photo__photoName
+  _photoDescription: potholeFinderApp_Pothole_Photo__photoDescription
+}
+union potholeFinderApp_Pothole_Photo__photoName = String
+union potholeFinderApp_Pothole_Photo__photoDescription = String
+type potholeFinderApp_Pothole_Pothole_Verification {
+  profile: potholeFinderApp_Profile
+  pothole: potholeFinderApp_Pothole
+  _potholeVerificationPhoto: potholeFinderApp_Pothole_Pothole_Verification__potholeVerificationPhoto
+  datetime: String
+  status: potholeFinderApp_Pothole_Pothole_Verification_Status
+}
+union potholeFinderApp_Pothole_Pothole_Verification__potholeVerificationPhoto = potholeFinderApp_Pothole_Photo
+enum potholeFinderApp_Pothole_Pothole_Verification_Status {
+  Unconfirmed
+  Unverified
+  FALSE
+  Confirmed
+  Verified
+  TRUE
+}
+type potholeFinderApp_Potholes {
+  pothole: [potholeFinderApp_Pothole]
+}
+type potholeFinderApp_Pothole_Verifications {
+  potholeVerification: [potholeFinderApp_Pothole_Pothole_Verification]
+}
+type potholeFinderApp_Photos {
+  photo: [potholeFinderApp_Pothole_Photo]
+}

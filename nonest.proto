@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package potholeFinderApp2;
+
+message Profile {
+    required int32 id = 1;
+    required string profile_email = 2;
+    string first_name = 3;
+    string last_name = 4;
+    required string password = 5;
+    map<string, Potholes> potholes = 6;
+}
+
+message Pothole {
+    required Profile profile = 1;
+    required int32 id = 2;
+    required string lat = 3;
+    required string lng = 4;
+    enum Pothole_Severity {
+        SMALL = 0;
+        MEDIUM = 1;
+        LARGE = 2;
+    }
+    Pothole_Severity pothole_severity = 5;
+    Pothole_Verification pothole_verification = 6;
+    optional Photo photo = 7;
+}
+
+message Potholes {
+    repeated Pothole pothole = 1;
+}
+
+message Pothole_Verification {
+    required Profile profile = 1;
+    required Pothole pothole = 2;
+    optional Photo photo = 3;
+    reserved 4;
+    Status status = 5;
+    string datetime = 6;
+}
+
+message Pothole_Verifications {
+    repeated Pothole_Verification pothole_verification = 1;
+}
+
+message Photo {
+    required Profile profile = 1;
+    required Pothole pothole = 2;
+    string photo_url = 3;
+    optional string photo_name = 4;
+    optional string photo_description = 5;
+}
+
+message Photos {
+    repeated Photo photo = 1;
+}
+
+enum Status {
+    option allow_alias = true;
+    Unconfirmed = 0;
+    Unverified = 0;
+    FALSE = 0;
+    Confirmed = 1;
+    Verified = 1;
+    TRUE = 1;
+}
